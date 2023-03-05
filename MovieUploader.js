@@ -4,6 +4,7 @@ import ImageLogo from "./movie.svg";
 import "./MovieUpload.css";
 import storage from "./firebase";
 import { ref, uploadBytesResumable } from "firebase/storage";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 const MovieUploader = () => {
   const [loading, setLoading] = useState(false);
@@ -31,10 +32,6 @@ const MovieUploader = () => {
         var result = document.getElementById("result");
         let qrValue = "https://" + user_id
         document.getElementById("qr-code").src = 'https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=' + qrValue;
-        console.log(result)
-        console.log(user_id)
-        console.log(qrValue)
-        // result.innerHTML = "https://" + user_id
       }
     )
   };
@@ -46,11 +43,12 @@ const MovieUploader = () => {
         <>
           {isUploaded ? (
             <>
-              <div class="qr-code">
+              <div className="qr-code">
                 <img id="qr-code" src="qr-code.png" alt="qr-code" class="qr-code"/><br/>
               </div>
-              <div class="result">
+              <div className="result">
                 <h2 id="result"><p>アップロード完了しました！</p></h2>
+                <p><Link to="/marker">次へ</Link></p>
               </div>
             </>
           ) : (
@@ -78,5 +76,14 @@ const MovieUploader = () => {
     </>
   );
 };
+
+const Marker = () => {
+  return (
+    <div>
+      <h1>ARマーカー作成</h1>
+      <p><Link to="/about">始める</Link></p>
+    </div>
+  )
+}
 
 export default MovieUploader;
